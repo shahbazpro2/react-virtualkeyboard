@@ -1,16 +1,12 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect } from 'react'
 
-const layout = [
-    "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "backspace",
-    "q", "w", "e", "r", "t", "y", "u", "i", "o", "p",
-    "caps", "a", "s", "d", "f", "g", "h", "j", "k", "l", "enter",
-    "done", "z", "x", "c", "v", "b", "n", "m", ",", ".", "?",
-    "space"
-];
-
-const Keyboard = ({ styles, input, setInput, show, setShow }) => {
+const Keyboard = ({ styles, layout, input, setInput, show, setShow }) => {
     const [capsLock, setCapsLock] = React.useState(false)
     const [keylayout, setKeylayout] = React.useState(layout)
+
+    useEffect(() => {
+        setKeylayout(layout)
+    }, [layout])
 
     const onKeyClick = (key) => {
         switch (key) {
@@ -67,13 +63,15 @@ const Keyboard = ({ styles, input, setInput, show, setShow }) => {
                 show &&
                 <div className='keyboard' style={{ ...styles?.keyboard }}>
                     <div className="keyboard__keys" style={{ ...styles?.keyboardKeys }}>
-                        {keylayout.map((key) => (
-                            <Fragment key={key}>
+                        {keylayout.map((key, index) => (
+                            <Fragment key={index}>
                                 {
                                     ['backspace', 'p', 'enter', '?'].indexOf(key.toLowerCase()) > -1 ? <>
                                         {renderButton(key)}
                                         <br />
-                                    </> : renderButton(key)
+                                    </> :
+                                        key === 'br' ? <><br /></> :
+                                            renderButton(key)
                                 }
                             </Fragment>
                         ))}

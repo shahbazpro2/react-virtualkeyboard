@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './App.css';
 import Keyboard from './Keyboard';
+import { Layout1, defaultLayout } from './layout';
 
 const keyboard1Styles = {
   keyboard: {
@@ -43,8 +44,8 @@ function App() {
       <textarea value={input} onChange={onChange} class="use-keyboard-input" style={{ position: 'absolute', top: '130px', right: '30px', width: '300px' }} onFocus={setShowKeyboard}  ></textarea>
       {
         activeKeyboard === 0 ?
-          <Keyboard input={input} setInput={setInput} show={showKeyboard} setShow={setShowKeyboard} styles={keyboard1Styles} /> :
-          <Keyboard input={input} setInput={setInput} show={showKeyboard} setShow={setShowKeyboard} styles={keyboard2Styles} />
+          <Keyboard layout={defaultLayout} input={input} setInput={setInput} show={showKeyboard} setShow={setShowKeyboard} styles={keyboard1Styles} /> :
+          <Keyboard layout={Layout1} input={input} setInput={setInput} show={showKeyboard} setShow={setShowKeyboard} styles={keyboard2Styles} />
       }
     </div>
   );
